@@ -17,26 +17,26 @@ services:
     volumes:
       - ./my-back/user.sql:/docker-entrypoint-initdb.d/user.sql
 
-  # backend:
-  #   build:
-  #     context: ./my-back
-  #     dockerfile: Dockerfile  # This assumes the Dockerfile is at the root of your Node.js project
-  #   container_name: nodejs-backend
-  #   depends_on:
-  #     - login-db  # Ensures that the db service is started first
-  #   environment:
-  #     - PORT=3100  # If you're using a PORT env variable in your Node.js app
-  #   ports:
-  #     - "3100:3100"
-  #   restart: always
+  backend:
+    build:
+      context: ./my-back
+      dockerfile: Dockerfile  # This assumes the Dockerfile is at the root of your Node.js project
+    container_name: nodejs-backend
+    depends_on:
+      - login-db  # Ensures that the db service is started first
+    environment:
+      - PORT=3100  # If you're using a PORT env variable in your Node.js app
+    ports:
+      - "3100:3100"
+    restart: always
 
-  # frontend:
-  #   build:
-  #     context: ./my-front
-  #     dockerfile: Dockerfile  # This assumes the Dockerfile is at the root of your React project
-  #   container_name: react-frontend
-  #   depends_on:
-  #     - backend  # Ensures that the backend service is started first
-  #   ports:
-  #     - "3000:3000"
-  #   restart: always
+  frontend:
+    build:
+      context: ./my-front
+      dockerfile: Dockerfile  # This assumes the Dockerfile is at the root of your React project
+    container_name: react-frontend
+    depends_on:
+      - backend  # Ensures that the backend service is started first
+    ports:
+      - "3000:3000"
+    restart: always
